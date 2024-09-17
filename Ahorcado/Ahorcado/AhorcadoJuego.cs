@@ -15,5 +15,10 @@ namespace Ahorcado
         {
             return;
         }
+
+        public void AdivinarLetra(char l)
+        {
+            return;
+        }
     }
 }

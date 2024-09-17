@@ -17,5 +17,19 @@ namespace MSTest_Ahorcado
             // Assert
             Assert.IsNotNull(ahorcadoJuego.PalabraSecreta);
         }
+
+        [TestMethod]
+
+        public void IngresarUnaLetra()
+        {
+            //Arrange
+            var ahorcadoJuego = new AhorcadoJuego();
+
+            //Act
+            ahorcadoJuego.AdivinarLetra('a');
+
+            //Assert
+            Assert.IsNotNull(ahorcadoJuego.LetrasIntentadas);
+        }
     }
 }
