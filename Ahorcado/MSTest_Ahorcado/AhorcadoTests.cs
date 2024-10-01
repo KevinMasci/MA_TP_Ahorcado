@@ -19,7 +19,6 @@ namespace MSTest_Ahorcado
         }
 
         [TestMethod]
-
         public void IngresarUnaLetra()
         {
             //Arrange
@@ -30,6 +29,45 @@ namespace MSTest_Ahorcado
 
             //Assert
             Assert.IsNotNull(ahorcadoJuego.LetrasIntentadas);
+        }
+
+        [TestMethod]
+        public void IngresarSoloLetrasA_Z()
+        {
+            //Arrange
+            var ahorcadoJuego = new AhorcadoJuego();
+
+            //Act
+            bool result = ahorcadoJuego.AdivinarLetra('a');
+
+            //Assert
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void IngresarUnaPalabra()
+        {
+            //Arrange
+            var ahorcadoJuego = new AhorcadoJuego();
+
+            //Act
+            bool result = ahorcadoJuego.AdivinarPalabra("Hola");
+
+            //Assert
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void RestarVidaPorLetraErronea()
+        {
+            //Arrange
+            var ahorcadoJuego = new AhorcadoJuego();
+
+            //Act
+            bool result = ahorcadoJuego.AdivinarLetra('j');
+
+            //Assert
+            Assert.AreEqual(5, ahorcadoJuego.VidasRestantes);
         }
     }
 }
