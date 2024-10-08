@@ -69,5 +69,19 @@ namespace MSTest_Ahorcado
             //Assert
             Assert.AreEqual(5, ahorcadoJuego.VidasRestantes);
         }
+
+        [TestMethod]
+        public void VerCantidadLetrasDeLaPalabra()
+        {
+            //Arrange
+            var ahorcadoJuego = new AhorcadoJuego();
+            ahorcadoJuego.ElegirPalabraSecreta();
+
+            //Act
+            int cantidadLetras = ahorcadoJuego.PalabraSecreta.Length;
+
+            //Assert
+            Assert.AreEqual(4, cantidadLetras);
+        }
     }
 }
