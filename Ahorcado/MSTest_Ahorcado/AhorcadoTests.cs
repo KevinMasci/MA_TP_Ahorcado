@@ -83,5 +83,21 @@ namespace MSTest_Ahorcado
             //Assert
             Assert.AreEqual(4, cantidadLetras);
         }
+
+        [TestMethod]
+        public void VerIntentosRestantes()
+        {
+            // Arrange
+            var ahorcadoJuego = new AhorcadoJuego();
+            int vidasIniciales = ahorcadoJuego.VidasRestantes;
+
+            // Act
+            ahorcadoJuego.AdivinarLetra('x');  
+            int vidasRestantes = ahorcadoJuego.VidasRestantes;
+
+            // Assert
+            Assert.AreEqual(vidasIniciales - 1, vidasRestantes);  
+        }
+
     }
 }
