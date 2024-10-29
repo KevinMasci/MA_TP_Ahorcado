@@ -117,6 +117,7 @@ namespace MSTest_Ahorcado
             Assert.IsTrue(juegoGanado);
         }
 
+        [TestMethod]
         public void PerderJuegoCuandoVidasSonCero()
         {
             // Arrange
