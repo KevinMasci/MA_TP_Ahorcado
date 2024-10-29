@@ -61,5 +61,10 @@ namespace Ahorcado
         {
             return PalabraSecreta.ToLower().All(letra => LetrasIntentadas.Contains(letra));
         }
+
+        public bool JuegoPerdido()
+        {
+            return VidasRestantes <= 0;
+        }
     }
 }

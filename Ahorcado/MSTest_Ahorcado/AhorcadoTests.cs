@@ -92,15 +92,15 @@ namespace MSTest_Ahorcado
             int vidasIniciales = ahorcadoJuego.VidasRestantes;
 
             // Act
-            ahorcadoJuego.AdivinarLetra('x');  
+            ahorcadoJuego.AdivinarLetra('x');
             int vidasRestantes = ahorcadoJuego.VidasRestantes;
 
             // Assert
-            Assert.AreEqual(vidasIniciales - 1, vidasRestantes);  
+            Assert.AreEqual(vidasIniciales - 1, vidasRestantes);
         }
 
         [TestMethod]
-        public void GanarJuegoAlAdivinarTodasLasLetras()    
+        public void GanarJuegoAlAdivinarTodasLasLetras()
         {
             // Arrange
             var ahorcadoJuego = new AhorcadoJuego();
@@ -115,6 +115,20 @@ namespace MSTest_Ahorcado
 
             // Assert
             Assert.IsTrue(juegoGanado);
+        }
+
+        public void PerderJuegoCuandoVidasSonCero()
+        {
+            // Arrange
+            var ahorcadoJuego = new AhorcadoJuego();
+            ahorcadoJuego.VidasRestantes = 1;
+
+            // Act
+            ahorcadoJuego.AdivinarLetra('K');
+            bool juegoPerdido = ahorcadoJuego.JuegoPerdido();
+
+            // Assert
+            Assert.IsTrue(juegoPerdido);
         }
     }
 }
