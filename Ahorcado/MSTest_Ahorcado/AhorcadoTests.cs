@@ -99,5 +99,22 @@ namespace MSTest_Ahorcado
             Assert.AreEqual(vidasIniciales - 1, vidasRestantes);  
         }
 
+        [TestMethod]
+        public void GanarJuegoAlAdivinarTodasLasLetras()    
+        {
+            // Arrange
+            var ahorcadoJuego = new AhorcadoJuego();
+            ahorcadoJuego.PalabraSecreta = "Hola";
+
+            // Act
+            ahorcadoJuego.AdivinarLetra('H');
+            ahorcadoJuego.AdivinarLetra('o');
+            ahorcadoJuego.AdivinarLetra('l');
+            ahorcadoJuego.AdivinarLetra('a');
+            bool juegoGanado = ahorcadoJuego.JuegoGanado();
+
+            // Assert
+            Assert.IsTrue(juegoGanado);
+        }
     }
 }
