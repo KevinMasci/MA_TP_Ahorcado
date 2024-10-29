@@ -23,6 +23,6 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore Ahorcado/Ahorcado.sln
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build Ahorcado/Ahorcado.sln --no-restore
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test Ahorcado/Ahorcado.sln --no-build --verbosity normal
