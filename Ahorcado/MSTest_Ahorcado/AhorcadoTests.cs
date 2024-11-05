@@ -12,14 +12,14 @@ namespace MSTest_Ahorcado
             var ahorcadoJuego = new AhorcadoJuego();
 
             // Act
-            ahorcadoJuego.ElegirPalabraSecreta();
+            ahorcadoJuego.IngresarPalabraSecreta("hola");
 
             // Assert
             Assert.IsNotNull(ahorcadoJuego.PalabraSecreta);
         }
 
         [TestMethod]
-        public void IngresarUnaLetra()
+        public void LetraIngresadaSeAgregaAListaDeIntentos()
         {
             //Arrange
             var ahorcadoJuego = new AhorcadoJuego();
@@ -29,6 +29,33 @@ namespace MSTest_Ahorcado
 
             //Assert
             Assert.IsNotNull(ahorcadoJuego.LetrasIntentadas);
+            Assert.IsTrue(ahorcadoJuego.LetrasIntentadas.Contains('a'));
+        }
+
+        [TestMethod]
+        public void IngresarLetraADevuelveCorrecto()
+        {
+            //Arrange
+            var ahorcadoJuego = new AhorcadoJuego();
+
+            //Act
+            bool result = ahorcadoJuego.AdivinarLetra('a');
+
+            //Assert
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void IngresarLetraXDevuelveIncorrecto()
+        {
+            //Arrange
+            var ahorcadoJuego = new AhorcadoJuego();
+
+            //Act
+            bool result = ahorcadoJuego.AdivinarLetra('x');
+
+            //Assert
+            Assert.IsFalse(result);
         }
 
         [TestMethod]
@@ -45,7 +72,20 @@ namespace MSTest_Ahorcado
         }
 
         [TestMethod]
-        public void IngresarUnaPalabra()
+        public void IngresarNumeroDevuelveIncorrecto()
+        {
+            //Arrange
+            var ahorcadoJuego = new AhorcadoJuego();
+
+            //Act
+            bool result = ahorcadoJuego.AdivinarLetra('3');
+
+            //Assert
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void IngresarLaPalabraCorrectaGanaLaPartida()
         {
             //Arrange
             var ahorcadoJuego = new AhorcadoJuego();
@@ -58,13 +98,26 @@ namespace MSTest_Ahorcado
         }
 
         [TestMethod]
+        public void IngresarUnaPalabraIncorrectaPierdeLaPartida()
+        {
+            //Arrange
+            var ahorcadoJuego = new AhorcadoJuego();
+
+            //Act
+            bool result = ahorcadoJuego.AdivinarPalabra("chau");
+
+            //Assert
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
         public void RestarVidaPorLetraErronea()
         {
             //Arrange
             var ahorcadoJuego = new AhorcadoJuego();
 
             //Act
-            bool result = ahorcadoJuego.AdivinarLetra('j');
+            ahorcadoJuego.AdivinarLetra('j');
 
             //Assert
             Assert.AreEqual(5, ahorcadoJuego.VidasRestantes);
@@ -75,7 +128,7 @@ namespace MSTest_Ahorcado
         {
             //Arrange
             var ahorcadoJuego = new AhorcadoJuego();
-            ahorcadoJuego.ElegirPalabraSecreta();
+            ahorcadoJuego.IngresarPalabraSecreta("hola");
 
             //Act
             int cantidadLetras = ahorcadoJuego.PalabraSecreta.Length;
@@ -104,7 +157,7 @@ namespace MSTest_Ahorcado
         {
             // Arrange
             var ahorcadoJuego = new AhorcadoJuego();
-            ahorcadoJuego.PalabraSecreta = "Hola";
+            ahorcadoJuego.IngresarPalabraSecreta("hola");
 
             // Act
             ahorcadoJuego.AdivinarLetra('H');
@@ -115,20 +168,27 @@ namespace MSTest_Ahorcado
 
             // Assert
             Assert.IsTrue(juegoGanado);
+            Assert.IsFalse(ahorcadoJuego.JuegoPerdido());
         }
 
-        public void PerderJuegoCuandoVidasSonCero()
+        [TestMethod]
+        public void PerderJuegoCuandoGastoTodasLasVidas()
         {
             // Arrange
             var ahorcadoJuego = new AhorcadoJuego();
-            ahorcadoJuego.VidasRestantes = 1;
 
             // Act
-            ahorcadoJuego.AdivinarLetra('K');
+            ahorcadoJuego.AdivinarLetra('x');
+            ahorcadoJuego.AdivinarLetra('x');
+            ahorcadoJuego.AdivinarLetra('x');
+            ahorcadoJuego.AdivinarLetra('x');
+            ahorcadoJuego.AdivinarLetra('x');
+            ahorcadoJuego.AdivinarLetra('x');
             bool juegoPerdido = ahorcadoJuego.JuegoPerdido();
 
             // Assert
             Assert.IsTrue(juegoPerdido);
+            Assert.IsFalse(ahorcadoJuego.JuegoGanado());
         }
     }
 }

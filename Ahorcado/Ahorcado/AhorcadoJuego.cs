@@ -10,18 +10,46 @@ namespace Ahorcado
     {
         public string PalabraSecreta { get; set; }
         public List<char> LetrasIntentadas { get; set; }
+        public List<char> LetrasDePalabra { get; set; }
         public int VidasRestantes { get; set; }
+        public List<char> PalabraIngresada { get; set; }
 
-        public AhorcadoJuego()
+
+        public AhorcadoJuego(string palabra)
         {
+            PalabraSecreta = palabra.ToLower();
+            PalabraIngresada = new List<char>();
+            for (int i = 1; i <= palabra.Length; i++)
+            {
+                PalabraIngresada.Add('_');
+            }
+            LetrasIntentadas = new List<char>();
+            LetrasUsadas = new List<char>();
+            LetrasErradas = new List<char>();
+            ChancesRestantes = 7;
+
             PalabraSecreta = "hola";
             LetrasIntentadas = new List<char>();
             VidasRestantes = 6;
         }
 
-        public void ElegirPalabraSecreta()
+        public Juego(String palabra)
         {
-            return;
+            Palabra = palabra.ToLower();
+            PalabraIngresada = new List<char>();
+            for (int i = 1; i <= palabra.Length; i++)
+            {
+                PalabraIngresada.Add('_');
+            }
+            LetrasAcertadas = new List<char>();
+            LetrasUsadas = new List<char>();
+            LetrasErradas = new List<char>();
+            ChancesRestantes = 7;
+        }
+
+        public void IngresarPalabraSecreta(string palabra)
+        {
+            PalabraSecreta = palabra;
         }
 
         public bool AdivinarLetra(char l)
@@ -37,6 +65,7 @@ namespace Ahorcado
             if (!PalabraSecreta.ToLower().Contains(l))
             {
                 --VidasRestantes;
+                return false;
             }
 
             return true;
