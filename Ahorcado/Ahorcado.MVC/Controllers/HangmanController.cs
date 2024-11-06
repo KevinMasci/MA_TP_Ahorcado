@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Ahorcado;
+using AhorcadoGame;
 
 namespace Ahorcado.MVC.Controllers
 {
     public class HangmanController : Controller
     {
-        public static Juego Juego { get; set; }
+        public static AhorcadoJuego Juego { get; set; }
 
         // GET: Hangman
         public ActionResult Index()
@@ -21,27 +21,26 @@ namespace Ahorcado.MVC.Controllers
         [HttpPost]
         public JsonResult InsertWordToGuess(Hangman model)
         {
-            Juego = new Juego(model.WordToGuess);
-            model.ChancesLeft = Juego.ChancesRestantes;
+            Juego = new AhorcadoJuego();
+            Juego.IngresarPalabraSecreta(model.WordToGuess);
+
+            model.ChancesLeft = Juego.VidasRestantes;
+            model.GuessingWord = string.Join(" ", Juego.PalabraSecreta.Select(l => "_"));
+            model.WrongLetters = string.Empty;
+            model.Win = false;
+
             return Json(model);
         }
 
         [HttpPost]
         public JsonResult TryLetter(Hangman model)
         {
-            Juego.insertarLetra(Convert.ToChar(model.LetterTyped));
-            model.Win = Juego.ValidarPalabra();
-            model.ChancesLeft = Juego.ChancesRestantes;
-            model.WrongLetters = string.Empty;
-            foreach (var wLetter in Juego.LetrasErradas)
-            {
-                model.WrongLetters += wLetter +  ",";
-            }
-            model.GuessingWord = string.Empty;
-            foreach (var rLetter in Juego.PalabraIngresada)
-            {
-                model.GuessingWord += rLetter + " ";
-            }
+            Juego.AdivinarLetra(Convert.ToChar(model.LetterTyped));
+            model.Win = Juego.JuegoGanado();
+            model.ChancesLeft = Juego.VidasRestantes;
+            model.GuessingWord = string.Join(" ", Juego.PalabraSecreta.Select(letra =>
+            Juego.LetrasIntentadas.Contains(char.ToLower(letra)) ? letra.ToString() : "_"));
+            model.WrongLetters = string.Join(",", Juego.LetrasIntentadas.Where(l => !Juego.PalabraSecreta.Contains(l.ToString())));
             model.LetterTyped = string.Empty;
             return Json(model);
         }
