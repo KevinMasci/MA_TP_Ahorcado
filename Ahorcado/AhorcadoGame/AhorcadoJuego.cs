@@ -17,7 +17,7 @@ namespace AhorcadoGame
 
         public AhorcadoJuego()
         {
-            PalabraSecreta = "hola";
+            PalabraSecreta = "";
             LetrasIntentadas = new List<char>();
             VidasRestantes = 6;
         }
@@ -33,7 +33,10 @@ namespace AhorcadoGame
             {
                 return false;
             }
+
             l = char.ToLower(l);
+
+            if (LetrasIntentadas.Contains(l)) {  return false; }
 
             LetrasIntentadas.Add(l);
 
@@ -42,8 +45,10 @@ namespace AhorcadoGame
                 --VidasRestantes;
                 return false;
             }
-
-            return true;
+            else
+            {
+                 return true;
+            }
         }
 
         public bool AdivinarPalabra(string palabra)
