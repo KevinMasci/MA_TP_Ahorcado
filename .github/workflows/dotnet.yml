@@ -36,15 +36,6 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Install .NET Framework 4.7.2 Developer Pack
-      run: |
-        Invoke-WebRequest -Uri https://download.visualstudio.microsoft.com/download/pr/6c3d4f6b-20f4-41ab-9d9d-b527a314087b/fcb0b48db69f98f17d3270c1d51a5925/NetFx472DeveloperPack.exe -OutFile NetFx472DeveloperPack.exe
-        Start-Process -FilePath NetFx472DeveloperPack.exe -ArgumentList "/quiet", "/norestart" -Wait
-        Remove-Item -Force NetFx472DeveloperPack.exe
-
-    - name: Restore NuGet Packages
-      run: dotnet restore Ahorcado/Ahorcado.sln
-
     - name: Run unit tests
       run: dotnet test Ahorcado/MSTest_Ahorcado_Frame/MSTest_Ahorcado_Frame.csproj --logger "trx" --results-directory "./test-results"
     
