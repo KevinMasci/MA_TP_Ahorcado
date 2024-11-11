@@ -28,3 +28,6 @@ jobs:
 
     - name: Build the solution
       run: msbuild Ahorcado/Ahorcado.sln
+
+    - name: Run Tests
+      run: vstest.console.exe .Ahorcado/MSTest_Ahorcado_Frame/bin/Release/MSTest_Ahorcado_Frame.dll
